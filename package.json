@@ -1,0 +1,25 @@
+{
+  "name": "merlin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "",
+  "scripts": {
+    "dev": "esrun --watch --preserveConsole src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev-once": "esrun --preserveConsole src/index.ts"
+  },
+  "devDependencies": {
+    "@digitak/esrun": "^3.2.24",
+    "@types/node": "^20.4.1",
+    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/parser": "^5.61.0",
+    "eslint": "^8.44.0",
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "fastify": "^4.19.2",
+    "puppeteer": "^20.8.0"
+  }
+}
