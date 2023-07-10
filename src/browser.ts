@@ -86,7 +86,7 @@ export const getInfo = async (browser: Browser): Promise<string | null> => {
   }
 };
 
-export const clockIn = async (browser: Browser): Promise<void> => {
+export const clockIn = async (browser: Browser): Promise<string> => {
   const page = await signIn(browser);
   await goToClock(page);
 
@@ -99,9 +99,18 @@ export const clockIn = async (browser: Browser): Promise<void> => {
     .click();
   await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
   await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+
+  const statusTextE = await page.waitForSelector("#TL_WEB_CLOCK_WK_DESCR50_1");
+
+  if (!statusTextE) {
+    throw new Error("Failed to find status text");
+  }
+  const statusText = await statusTextE?.evaluate((el) => el.textContent);
+  await page.close();
+  return statusText || "NO INFO";
 };
 
-export const clockOut = async (browser: Browser): Promise<void> => {
+export const clockOut = async (browser: Browser): Promise<string> => {
   const page = await signIn(browser);
   await goToClock(page);
 
@@ -113,4 +122,12 @@ export const clockOut = async (browser: Browser): Promise<void> => {
   await selector?.select("2");
   await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
   await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+  const statusTextE = await page.waitForSelector("#TL_WEB_CLOCK_WK_DESCR50_1");
+
+  if (!statusTextE) {
+    throw new Error("Failed to find status text");
+  }
+  const statusText = await statusTextE?.evaluate((el) => el.textContent);
+  await page.close();
+  return statusText || "NO INFO";
 };

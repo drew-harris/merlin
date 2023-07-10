@@ -36,7 +36,7 @@ async function main() {
     clockIn(browser)
       .then(async (info) => {
         console.log("Done: ", info);
-        sendMessage("Clocked in");
+        sendMessage("Clocked in: " + info);
       })
       .catch((e) => {
         console.error("There was an error clocking in", e);
@@ -52,7 +52,7 @@ async function main() {
     clockOut(browser)
       .then(async (info) => {
         console.log("Done: ", info);
-        sendMessage("Clocked out");
+        sendMessage("Clocked out: " + info);
       })
       .catch((e) => {
         console.error("There was an error clocking out", e);
