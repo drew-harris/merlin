@@ -11,8 +11,15 @@ export const sendMessage = async (message: string): Promise<boolean> => {
           message,
           key: process.env.KEY,
         }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
     );
+
+    if (!response.ok) {
+      return false;
+    }
     return true;
   } catch (error) {
     return false;

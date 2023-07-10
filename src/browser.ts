@@ -85,3 +85,32 @@ export const getInfo = async (browser: Browser): Promise<string | null> => {
     throw new Error("Could not sign in");
   }
 };
+
+export const clockIn = async (browser: Browser): Promise<void> => {
+  const page = await signIn(browser);
+  await goToClock(page);
+
+  console.log("Looking for select box");
+  await page.waitForSelector("select.ps-dropdown");
+  await page.select("select.ps-dropdown", "1");
+
+  await page
+    .locator('a#TL_WEB_CLOCK_WK_TL_SAVE_PB.ps-button[role="button"]')
+    .click();
+  await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+  await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+};
+
+export const clockOut = async (browser: Browser): Promise<void> => {
+  const page = await signIn(browser);
+  await goToClock(page);
+
+  console.log("Looking for select box");
+  const selector = await page.$("select.ps-dropdown");
+
+  await page.waitForSelector("select.ps-dropdown");
+  await page.select("select.ps-dropdown", "2");
+  await selector?.select("2");
+  await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+  await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+};
