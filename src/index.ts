@@ -1,12 +1,14 @@
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-extra";
 import Fastify from "fastify";
 import { clockIn, clockOut, getInfo } from "./browser";
 import dotenv from "dotenv";
 import { sendMessage } from "./discord";
+import StealthPlugin from "puppeteer-extra-plugin-stealth";
+
 dotenv.config();
 
 async function main() {
-  const browser = await puppeteer.launch({
+  const browser = await puppeteer.use(StealthPlugin()).launch({
     headless: "new",
     args: ["--no-sandbox"],
   });

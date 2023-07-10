@@ -54,6 +54,7 @@ export async function signIn(browser: Browser): Promise<Page> {
   await page.locator('button[type="submit"]').click();
 
   ///.... User is prompted for a duo push
+  page.setDefaultTimeout(10000);
   const trustButton = await page
     .waitForSelector("text/Yes, trust browser")
     .catch((_e) => {
@@ -94,9 +95,10 @@ export const clockIn = async (browser: Browser): Promise<string> => {
   await page.waitForSelector("select.ps-dropdown");
   await page.select("select.ps-dropdown", "1");
 
-  await page
-    .locator('a#TL_WEB_CLOCK_WK_TL_SAVE_PB.ps-button[role="button"]')
-    .click();
+  await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+  await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+  await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+  await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
   await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
   await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
 
@@ -115,13 +117,18 @@ export const clockOut = async (browser: Browser): Promise<string> => {
   await goToClock(page);
 
   console.log("Looking for select box");
-  const selector = await page.$("select.ps-dropdown");
 
   await page.waitForSelector("select.ps-dropdown");
   await page.select("select.ps-dropdown", "2");
-  await selector?.select("2");
+
   await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
   await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+  await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+  await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+  await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+  await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+  await page.locator("a#TL_WEB_CLOCK_WK_TL_SAVE_PB").click();
+
   const statusTextE = await page.waitForSelector("#TL_WEB_CLOCK_WK_DESCR50_1");
 
   if (!statusTextE) {
