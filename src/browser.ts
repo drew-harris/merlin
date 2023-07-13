@@ -55,11 +55,9 @@ export async function signIn(browser: Browser): Promise<Page> {
 
   ///.... User is prompted for a duo push
   page.setDefaultTimeout(10000);
-  const trustButton = await page
-    .waitForSelector("text/Yes, trust browser")
-    .catch((_e) => {
-      throw new Error("Could not get duo push");
-    });
+  const trustButton = await page.waitForSelector("text/Yes").catch((_e) => {
+    throw new Error("Could not get duo push");
+  });
   await trustButton?.click();
 
   console.log("CLICKED");
